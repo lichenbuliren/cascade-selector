@@ -6,6 +6,7 @@
 ## 目录
 - [使用方法](#user-content-使用方法)
 - [文档](#user-content-文档)
+- [Q&A](#user-content-Q&A)
 
 ## 使用方法
 ``` html
@@ -194,3 +195,5 @@ data = [{id: xxx, name: 'xxxx'}, ...{id: xxx, name: 'xxxx'}];
 
 
 
+## Q&A
+有任何问题欢迎提 issue 交流 :)。
