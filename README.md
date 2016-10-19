@@ -6,7 +6,7 @@
 ## 目录
 - [使用方法](#user-content-使用方法)
 - [文档](#user-content-文档)
-- [Q&A](#user-content-Q&A)
+- [Q&A](#user-content-qa)
 
 ## 使用方法
 ``` html
