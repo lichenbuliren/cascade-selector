@@ -48,6 +48,16 @@ $('.address-down-selector').cascadeSelector({
     // TODO 这里可以获取到所有列表项选中的数据
   }
 });
+
+// 自定义格式化函数，将 array 类型转化为 Object 类型
+// [{id: 1,name:'asd'}, {id: 2, name: 'asdfasfd'}] => { 1: {id:1, name: 'asd'}, 2: {id: 2, name: 'asdfasfd'}};
+function formateDataFn(data) {
+  var newData = {};
+  $.each(data, function(key, val) {
+    newData[val.id] = val;
+  });
+  return newData;
+}
 ```
 ![usage](./images/usage.png)
 
