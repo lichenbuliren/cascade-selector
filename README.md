@@ -6,6 +6,7 @@
 ## 目录
 - [使用方法](#user-content-使用方法)
 - [文档](#user-content-文档)
+- [优化](#user-content-优化)
 - [Q&A](#user-content-qa)
 
 ## 使用方法
@@ -192,6 +193,15 @@ defaultActiveData: ['广东省','深圳市'];
 
 afterRender: function; 当用户选择某个列表项之后，列表项级联渲染完成之后触发的回调方法。在这里可以获取到整个组件所有选中级联项的数据；
 data = [{id: xxx, name: 'xxxx'}, ...{id: xxx, name: 'xxxx'}];
+
+
+
+## 优化
+目前我们的组件还不是很完善，还有很多优化的地方：
+- 去除 domTag 耦合，改用 template = '<ul>xxxx</ul>' 的方式
+- 去除 ajax 获取数据的耦合
+- 动态添加级联项需求
+
 
 
 
