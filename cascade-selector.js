@@ -48,9 +48,13 @@
       _this.params.queryKey = _this.params.dataKeys[0];
     }
 
+    $.each(_this.params.defaultActiveData, function(index, val) {
+      // 将传入的空值设置为 null
+      if (!val) _this.params.defaultActiveData[index] = null;
+    });
+
     init();
     bindEvents();
-
 
     /*==========================================
         Event Listeners
@@ -107,9 +111,9 @@
           if ($(el).text().indexOf(_this.params.defaultActiveData[index]) > -1) {
             obj.id = $(el).attr('data-id');
             obj.name = $(el).text();
-            $container.attr('data-id', obj.id);
           }
         });
+        $container.attr('data-id', obj.id);
       }
 
       _this.params.onChange && _this.params.onChange($container, obj);
@@ -155,28 +159,27 @@
 
     function generateRenderData(index, prevKey) {
       var $deferred = $.Deferred();
-
       // 首先判断是否有缓存数据
       if (_cacheData[index] && _cacheData[index][prevKey]) {
         $deferred.resolve(_cacheData[index][prevKey]);
-      }
-
-      // 没有缓存数据，缓存到本地
-      if (typeof _this.params.data[index] === 'object') {
-        cacheDataHandler(index, prevKey, _this.params.data[index][prevKey]);
-        $deferred.resolve(_this.params.data[index][prevKey]);
-      } else if (typeof _this.params.data[index] === 'string') {
-        // 异步获取数据
-        var queryObj = {};
-        var cache;
-        queryObj[_this.params.queryKey] = prevKey;
-        $.getJSON(_this.params.data[index], queryObj, function(resp) {
-          if (_this.params.formateDataFn) {
-            cache = _this.params.formateDataFn(resp[_this.params.responseField]);
-          }
-          cacheDataHandler(index, prevKey, cache);
-          $deferred.resolve(cache);
-        });
+      } else {
+        // 没有缓存数据，缓存到本地
+        if (typeof _this.params.data[index] === 'object') {
+          cacheDataHandler(index, prevKey, _this.params.data[index][prevKey]);
+          $deferred.resolve(_this.params.data[index][prevKey]);
+        } else if (typeof _this.params.data[index] === 'string') {
+          // 异步获取数据
+          var queryObj = {};
+          var cache;
+          queryObj[_this.params.queryKey] = prevKey;
+          $.getJSON(_this.params.data[index], queryObj, function(resp) {
+            if (_this.params.formateDataFn) {
+              cache = _this.params.formateDataFn(resp[_this.params.responseField]);
+            }
+            cacheDataHandler(index, prevKey, cache);
+            $deferred.resolve(cache);
+          });
+        }
       }
 
       return $deferred.promise();
